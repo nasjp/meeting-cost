@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>会議の時間コスト計算機</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 480px; margin: 40px auto; padding: 0 16px; color: #222; }
+  h1 { font-size: 1.4rem; }
+  label { display: block; margin: 16px 0 4px; font-weight: 600; }
+  input { width: 100%; padding: 10px; font-size: 1rem; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; }
+  .result { margin-top: 28px; padding: 20px; background: #f4f6fb; border-radius: 8px; text-align: center; }
+  .total { font-size: 2rem; font-weight: 700; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <h1>会議の時間コスト計算機</h1>
+  <label for="people">参加人数（人）</label>
+  <input id="people" type="number" min="0" step="1" value="5">
+  <label for="hours">時間（時間）</label>
+  <input id="hours" type="number" min="0" step="0.25" value="1">
+  <label for="rate">1時間あたりの単価（円）</label>
+  <input id="rate" type="number" min="0" step="100" value="3000">
+  <div class="result">
+    <div>合計コスト</div>
+    <div class="total" id="total">-</div>
+  </div>
+<script>
+  const ids = ["people", "hours", "rate"];
+  function calc() {
+    const [p, h, r] = ids.map(id => Number(document.getElementById(id).value) || 0);
+    document.getElementById("total").textContent =
+      "¥" + Math.round(p * h * r).toLocaleString("ja-JP");
+  }
+  ids.forEach(id => document.getElementById(id).addEventListener("input", calc));
+  calc();
+</script>
+</body>
+</html>
